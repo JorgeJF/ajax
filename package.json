@@ -9,11 +9,11 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"start": "node node_modules/json-server/lib/cli/bin.js --watch ./js/db.json"
+    "start": "node node_modules/json-server/lib/cli/bin.js --watch ./js/db.json"
   },
   "repository": {
     "type": "git",
-	"url": "git+https://github.com/JorgeJF/ajax.git"
+    "url": "git+https://github.com/JorgeJF/ajax.git"
   },
   "author": "",
   "license": "ISC",
