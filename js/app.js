@@ -10,7 +10,7 @@ function obtenerImagenes(){
     let categorias = document.getElementById("categorias");
     let cat_seleccionada = categorias.options[categorias.selectedIndex].id;
     let xhr= new XMLHttpRequest();
-    xhr.open('GET', "https://api.thecatapi.com/v1/images/search?category_ids="+cat_seleccionada,true);//true indica que se hace peticion asincrona
+    xhr.open('GET', "https://api.thecatapi.com/v1/images/search?limit=3&category_ids="+cat_seleccionada,true);//true indica que se hace peticion asincrona
     xhr.setRequestHeader('x-api-key', 'e6674da0-82e2-4584-8daa-797f03695db4');
     xhr.responseType = 'json';//indicamos al objeto xhr que el objeto devuelto por el servidor va a ser de tipo json
     xhr.send(null);
@@ -33,8 +33,10 @@ function obtenerImagenes(){
     }
 
 function obtenerCategorias(){
+    //https://api.thecatapi.com/v1/categories
+    //http://localhost:3000/categorias
     let xhr= new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/categorias',true);//true indica que se hace peticion asincrona
+    xhr.open('GET', 'https://api.thecatapi.com/v1/categories',true);//true indica que se hace peticion asincrona
     xhr.responseType = 'json';//indicamos al objeto xhr que el objeto devuelto por el servidor va a ser de tipo json
     xhr.send(null);
     xhr.onreadystatechange = function(){
@@ -59,6 +61,13 @@ function crearImagenes(jsonObj){
     let imagenes=[];
     let url=[];
     url = jsonObj.response;
+    let divAnterior = document.getElementsByTagName('div');
+    if(divAnterior!=undefined){
+        while(divAnterior.length!=0){
+            document.body.removeChild(divAnterior[0]);
+        }
+        
+    }
     for(let i=0; i<url.length;i++){
         console.log(url[i]["url"]);
         let miDiv = document.createElement('div');
