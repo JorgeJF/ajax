@@ -74,7 +74,9 @@ function crearImagenes(jsonObj){
         imagenes[i] = document.createElement('img');
         imagenes[i].setAttribute("src", url[i]["url"]);
         miDiv.appendChild(imagenes[i]);
-        document.body.appendChild(miDiv);
+        let ul = document.getElementsByTagName('ul')[0];
+        document.body.insertBefore(miDiv, ul); 
+       // document.body.appendChild(miDiv);
     }
 }
 

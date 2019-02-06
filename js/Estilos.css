@@ -8,3 +8,15 @@ img{
     height: 90%;
     width: 90%;
 }
+
+
+li{
+    display: inline-block;
+    text-decoration: none;
+    height: 50px;
+    width: 50px;
+    border: 1px solid black;
+    text-align: center;
+    line-height:50px;
+
+}
