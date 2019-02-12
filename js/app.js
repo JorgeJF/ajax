@@ -10,7 +10,7 @@ function obtenerImagenes(){
     let categorias = document.getElementById("categorias");
     let cat_seleccionada = categorias.options[categorias.selectedIndex].id;
     let xhr= new XMLHttpRequest();
-    xhr.open('GET', "https://api.thecatapi.com/v1/images/search?limit=3&category_ids="+cat_seleccionada,true);//true indica que se hace peticion asincrona
+    xhr.open('GET', "https://api.thecatapi.com/v1/images/search?limit=50&category_ids="+cat_seleccionada,true);//true indica que se hace peticion asincrona
     xhr.setRequestHeader('x-api-key', 'e6674da0-82e2-4584-8daa-797f03695db4');
     xhr.responseType = 'json';//indicamos al objeto xhr que el objeto devuelto por el servidor va a ser de tipo json
     xhr.send(null);
@@ -20,7 +20,9 @@ function obtenerImagenes(){
             // todo va bien, respuesta recibida
             if (this.status == 200) {
                 // Todo bien
+                crearPaginacion(this);
                 crearImagenes(this);
+
                 
             } else {
                 console.log("error en la peticion 500, 404, etc")
@@ -57,6 +59,29 @@ function obtenerCategorias(){
 
 }
 
+function crearPaginacion (jsonObj){
+    let longitud_json =jsonObj.response.length;
+    let paginas =[];
+    let li;
+    let enlace;
+    let ul = document.getElementsByTagName('ul')[0];
+    let li_existente = document.getElementsByTagName('li');
+    let longitud_lista=li_existente.length;
+    for(let i=0; i<longitud_lista;i++){
+        li_existente[0].remove();
+    }
+    for(let i=1; i<=((longitud_json/8)+1); i++){
+        li = document.createElement('li');
+        li.setAttribute("id", "'"+i+"'");
+        li.textContent=i;
+        enlace = document.createElement('a');
+        enlace.setAttribute("href", "#");
+        enlace.appendChild(li);
+        ul.appendChild(enlace);
+    }
+
+}
+
 function crearImagenes(jsonObj){
     let imagenes=[];
     let url=[];
@@ -68,7 +93,7 @@ function crearImagenes(jsonObj){
         }
         
     }
-    for(let i=0; i<url.length;i++){
+    for(let i=0; i<8;i++){
         console.log(url[i]["url"]);
         let miDiv = document.createElement('div');
         imagenes[i] = document.createElement('img');
